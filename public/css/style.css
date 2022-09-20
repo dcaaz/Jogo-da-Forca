@@ -1,0 +1,111 @@
+.root {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.forca{
+    display: flex;
+    justify-content: space-between;
+
+    width: 600px;
+
+    margin-top: 30px;
+}
+
+.forca> img {
+    width: 400px;
+}
+
+.forca-itens {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.forca-itens> button {
+    display: flex;
+    align-items: center;
+
+    height: 20px;
+
+    font-size: 15px;
+    font-weight: 900;
+    color: #FEFFFF;
+    background-color: #59AF61;
+
+    padding: 20px;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.forca-itens> h1 {
+   font-size: 40px; 
+}
+
+.teclado-virtual {
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 550px;
+
+    margin-top: 30px;
+    gap: 2px;
+}
+
+.teclado-virtual > button {
+    width: 40px;
+    height: 40px;
+
+    font-size: 15px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #79818A;
+    background-color: #9FAAB5;
+
+    border-style: none;
+    border-radius: 5px;
+}
+
+.adivinhar-palavra {
+    display: flex;
+    align-items: center;
+
+    width: 550px;
+
+    margin-top: 30px;
+}
+
+.adivinhar-palavra > h1 {
+    font-size: 20px;
+}
+
+.adivinhar-palavra > input {
+    width: 300px;
+    height: 20px;
+
+    font-size: 15px;
+
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.adivinhar-palavra > button {
+    height: 40px;
+
+    font-size: 15px;
+    font-weight: 900;
+    color: #39739d;
+    background-color:#e1ecf4;
+
+    border-radius: 5px;
+}
+
+.esconde {
+    display: none;
+}
+
+
+
+
