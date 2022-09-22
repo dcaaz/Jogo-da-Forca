@@ -3,23 +3,23 @@ export default function App() {
 
     // JSX - JavaScript and XML
     return (
-        <div>
-            <div class="forca">
+        <>
+            <div className="forca">
                 <img src="./assets/forca0.png" alt="forca" />
-                <div class="forca-itens">
+                <div className="forca-itens">
                 <button>Escolher Palavra</button>
                 <h1>_ _ _</h1>
             </div>
             </div>
-            <div class="teclado-virtual">
+            <div className="teclado-virtual">
                 {alfabeto.map((letra) => <button>{letra}</button>)}
             </div>
-            <div class="adivinhar-palavra esconde">
+            <div className="adivinhar-palavra esconde">
                 <h1>Já sei a palavra!</h1>
                 <input></input>
                 <button>Chutar</button>
             </div>
-        </div>
+        </>
     )
 
 }
