@@ -61,11 +61,19 @@
     font-size: 15px;
     font-weight: 900;
     text-transform: uppercase;
-    color: #79818A;
-    background-color: #9FAAB5;
 
     border-style: none;
     border-radius: 5px;
+}
+
+.cinza {
+    color: #79818A;
+    background-color: #9FAAB5;
+}
+
+.azul {
+    color: #2c5777;
+    background-color: #b3d3ea;
 }
 
 .adivinhar-palavra {
@@ -96,8 +104,6 @@
 
     font-size: 15px;
     font-weight: 900;
-    color: #39739d;
-    background-color:#e1ecf4;
 
     border-radius: 5px;
 }
