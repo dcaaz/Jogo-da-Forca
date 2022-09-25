@@ -13,11 +13,13 @@ import getPalavras from "./palavras";
 
 export default function App() {
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    const [cor, setCor] = React.useState("cinza");
+    const [corTecla, setCorTecla] = React.useState("cinza");
     const [contador, setContador] = React.useState(0);
     const [palavraSorteada, setPalavraSorteada] = React.useState('');
-    const [palavraUnderlines, setPalavraUnderlines] = React.useState([]);
-    //const [conteudoImput, setConteudoImput] = React.useState[''];
+    const [pSorteadaNormalizada, setPSorteadaNormalizada] = React.useState([]);
+    const [palavraUnderlines, setPUnderlines] = React.useState([]);
+    const [pFinalizada, setPFinalizada] = React.useState("");
+    const [lClicada, setLClicada] = React.useState([])
 
     const imagens = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
 
@@ -25,26 +27,47 @@ export default function App() {
         let palavras = getPalavras();
         const indice = Math.floor(Math.random() * palavras.length); //floor arredonda para o menor número inteiro e random retorna um indice aleatóri
         let palavra = palavras[indice];
-        
+        let palavraNormalizada = palavra.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split("");
+        let underline = palavraNormalizada.map(() => ' _ ');
+
         setPalavraSorteada(palavra);
-        setPalavraUnderlines(palavra.split("").map((letraP) => '_ '));
+        setPSorteadaNormalizada(palavraNormalizada);
+        console.log(palavra);
+        setPUnderlines(underline);
     }
 
     function iniciarPartida() {
         sortearPalavra();
-        setCor("azul");
+        setCorTecla("azul");
     }
 
-    function letraClicada(letra) {
-        console.log(palavraSorteada);
-        console.log(palavraUnderlines);
+    function letraClicada(letraClick, index) {
 
-        if (palavraSorteada.includes(letra)) {
-            setPalavraUnderlines(letra)
-        } else  {
+        const clicado = [...lClicada, letraClick];
+        setLClicada(clicado);
+
+        if (pSorteadaNormalizada.includes(letraClick)) {
+            let newPalavraUnderlines = [...palavraUnderlines];
+            let indicesLetraNaPalavra = pSorteadaNormalizada.map((letraPalavra, idx) => letraPalavra === letraClick ? idx : -1).filter((idx) => idx !== -1);
+            indicesLetraNaPalavra.forEach((index) => newPalavraUnderlines[index] = palavraSorteada[index]);
+
+            setPUnderlines(newPalavraUnderlines);
+
+        } else {
             setContador(contador + 1);
         }
         console.log(contador)
+
+        palavraFinalizada()
+    }
+
+    function palavraFinalizada() {
+
+        if (contador === 6) {
+            setPFinalizada("vermelho")
+        } else {
+            setPFinalizada("verde")
+        }
     }
 
 
@@ -55,16 +78,27 @@ export default function App() {
                 <img src={imagens[contador]} alt="forca" />
                 <div className="forca-itens">
                     <button onClick={iniciarPartida}>Escolher Palavra</button>
-                    <h1>{palavraUnderlines}</h1>
+                    <h1 className={pFinalizada}>{palavraUnderlines}</h1>
                 </div>
             </div>
             <div className="teclado-virtual">
-                {alfabeto.map((letra, index) => <button key={index} className={cor} onClick={() => letraClicada(letra)}>{letra}</button>)}
+                {alfabeto.map((letra, index) =>
+
+                    <button
+                        key={index}
+                        className={lClicada.includes(letra) ? "cinza" : "azul"}
+                        onClick={() => letraClicada(letra, index)}>
+
+                        {letra}
+
+                    </button>
+
+                )}
             </div>
             <div className="adivinhar-palavra">
                 <h1>Já sei a palavra!</h1>
                 <input></input>
-                <button className={cor}>Chutar</button>
+                <button className={corTecla}>Chutar</button>
             </div>
         </>
     )
