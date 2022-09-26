@@ -29,6 +29,7 @@
     align-items: center;
 
     height: 20px;
+    width: 161px;
 
     font-size: 15px;
     font-weight: 900;
@@ -118,6 +119,12 @@
 
 .verde {
     color: green;
+}
+
+.desabilitado > button {
+    color: #79818A;
+    background-color: #9FAAB5;
+    pointer-events: none;
 }
 
 

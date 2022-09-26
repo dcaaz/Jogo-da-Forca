@@ -19,24 +19,28 @@ export default function App() {
     const [pFinalizada, setPFinalizada] = React.useState("");
     const [lClicada, setLClicada] = React.useState([]);
     const [imput, setImput] = React.useState("");
-    // const [disable, setDisable] = React.useState(false);
+    const [desabilitado, setDesabilitado] = React.useState("desabilitado");
 
     const imagens = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
 
     function sortearPalavra() {
         let palavras = getPalavras();
-        const indice = Math.floor(Math.random() * palavras.length); //floor arredonda para o menor número inteiro e random retorna um indice aleatóri
+        const indice = Math.floor(Math.random() * palavras.length); //floor arredonda para o menor número inteiro e random retorna um indice aleatório
         let palavra = palavras[indice];
-        let palavraNormalizada = palavra.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split("");
+        let palavraNormalizada = palavra.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(""); //tira os acentos e transforma em array
         let underline = palavraNormalizada.map(() => ' _ ');
 
         setPalavraSorteada(palavra);
-        setPSorteadaNormalizada(palavraNormalizada);
         console.log(palavra);
+        setPSorteadaNormalizada(palavraNormalizada);
         setPUnderlines(underline);
+
+        setContador(0); //zera contador
+        setLClicada([]); //zera teclado
     }
 
     function iniciarPartida() {
+        desabilita();
         sortearPalavra();
     }
 
@@ -52,6 +56,11 @@ export default function App() {
 
             setPUnderlines(newPalavraUnderlines);
 
+            if (!newPalavraUnderlines.includes(' _ ')) {
+                setPFinalizada("verde");
+                desabilita();
+            }
+
         } else {
             setContador(contador + 1);
         }
@@ -63,8 +72,8 @@ export default function App() {
     function palavraFinalizada() {
 
         if (contador === 6) {
-            setPFinalizada("vermelho")
-            jogoFinalizado()
+            setPFinalizada("vermelho");
+            desabilita();
         }
     }
 
@@ -72,18 +81,20 @@ export default function App() {
         if (imput === palavraSorteada) {
             setPUnderlines(imput);
             setPFinalizada("verde");
-            jogoFinalizado();
+            desabilita();
         } else {
             setPUnderlines(imput);
             setPFinalizada("vermelho");
             setContador(6);
-            jogoFinalizado();
+            desabilita();
         }
     }
 
-    function jogoFinalizado(){
-        //desabilitar teclado
-        //desabilitar imput
+    function desabilita() {
+        const inputHabilitacao =  document.querySelector("input");
+        inputHabilitacao.disabled = false;
+
+        setDesabilitado("");
     }
 
     return (
@@ -95,7 +106,7 @@ export default function App() {
                     <h1 className={pFinalizada}>{pUnderlines}</h1>
                 </div>
             </div>
-            <div className="teclado-virtual">
+            <div className={"teclado-virtual " + desabilitado}>
                 {alfabeto.map((letra, index) =>
 
                     <button
@@ -113,9 +124,11 @@ export default function App() {
                 <h1>Já sei a palavra!</h1>
 
                 <input
+                    id = "input"
                     placeholder="Digete  seu chute..."
                     onChange={(event) => setImput(event.target.value)}
                     value={imput}
+                    disabled
                 />
 
                 <button
