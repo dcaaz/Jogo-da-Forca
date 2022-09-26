@@ -37,11 +37,16 @@ export default function App() {
 
         setContador(0); //zera contador
         setLClicada([]); //zera teclado
+        setPFinalizada(""); //zera cor da palavra
     }
 
     function iniciarPartida() {
-        desabilita();
         sortearPalavra();
+
+        const inputHabilitacao = document.querySelector("input");
+        inputHabilitacao.disabled = false;
+
+        setDesabilitado("");
     }
 
     function letraClicada(letraClick, index) {
@@ -58,22 +63,21 @@ export default function App() {
 
             if (!newPalavraUnderlines.includes(' _ ')) {
                 setPFinalizada("verde");
-                desabilita();
             }
 
         } else {
             setContador(contador + 1);
         }
-        console.log(contador)
 
         palavraFinalizada()
     }
 
     function palavraFinalizada() {
 
-        if (contador === 6) {
+        if (contador === 5) {
+            console.log(contador)
+            setPUnderlines(palavraSorteada);
             setPFinalizada("vermelho");
-            desabilita();
         }
     }
 
@@ -81,35 +85,27 @@ export default function App() {
         if (imput === palavraSorteada) {
             setPUnderlines(imput);
             setPFinalizada("verde");
-            desabilita();
         } else {
             setPUnderlines(imput);
             setPFinalizada("vermelho");
             setContador(6);
-            desabilita();
         }
-    }
-
-    function desabilita() {
-        const inputHabilitacao =  document.querySelector("input");
-        inputHabilitacao.disabled = false;
-
-        setDesabilitado("");
     }
 
     return (
         <>
             <div className="forca">
-                <img src={imagens[contador]} alt="forca" />
+                <img data-identifier="game-image" src={imagens[contador]} alt="forca" />
                 <div className="forca-itens">
-                    <button onClick={iniciarPartida}>Escolher Palavra</button>
-                    <h1 className={pFinalizada}>{pUnderlines}</h1>
+                    <button data-identifier="choose-word" onClick={iniciarPartida}>Escolher Palavra</button>
+                    <h1 data-identifier="word" className={pFinalizada}>{pUnderlines}</h1>
                 </div>
             </div>
-            <div className={"teclado-virtual " + desabilitado}>
+            <div data-identifier="letter" className={"teclado-virtual " + desabilitado}>
                 {alfabeto.map((letra, index) =>
 
                     <button
+                        disabled={lClicada.includes(letra) ? true : false}
                         key={index}
                         className={lClicada.includes(letra) ? "cinza" : "azul"}
                         onClick={() => letraClicada(letra, index)}>
@@ -123,15 +119,15 @@ export default function App() {
             <div className="adivinhar-palavra">
                 <h1>Já sei a palavra!</h1>
 
-                <input
-                    id = "input"
+                <input data-identifier="type-guess"
+                    id="input"
                     placeholder="Digete  seu chute..."
                     onChange={(event) => setImput(event.target.value)}
                     value={imput}
                     disabled
                 />
 
-                <button
+                <button data-identifier="guess-button"
                     onClick={botaoImput}>
                     Chutar
                 </button>
