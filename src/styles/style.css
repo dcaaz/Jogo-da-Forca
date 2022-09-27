@@ -5,7 +5,7 @@
     align-items: center;
 }
 
-.forca{
+.forca {
     display: flex;
     justify-content: space-between;
 
@@ -14,7 +14,7 @@
     margin-top: 30px;
 }
 
-.forca> img {
+.forca>img {
     width: 400px;
 }
 
@@ -24,7 +24,7 @@
     flex-direction: column;
 }
 
-.forca-itens> button {
+.forca-itens>button {
     display: flex;
     align-items: center;
 
@@ -41,8 +41,8 @@
     border-radius: 5px;
 }
 
-.forca-itens> h1 {
-   font-size: 40px; 
+.forca-itens>h1 {
+    font-size: 40px;
 }
 
 .teclado-virtual {
@@ -55,26 +55,29 @@
     gap: 2px;
 }
 
-.teclado-virtual > button {
+.teclado-virtual>button {
     width: 40px;
     height: 40px;
 
     font-size: 15px;
     font-weight: 900;
     text-transform: uppercase;
+    /*letra maiúscula*/
 
     border-style: none;
     border-radius: 5px;
-}
 
-.cinza {
-    color: #79818A;
-    background-color: #9FAAB5;
-}
-
-.azul {
+    cursor: pointer;
+    /*cursor mãozinha*/
     color: #2c5777;
     background-color: #b3d3ea;
+}
+
+.teclado-virtual>button:disabled {
+    cursor: default;
+    /*cursor setinha*/
+    color: #79818A;
+    background-color: #9FAAB5;
 }
 
 .adivinhar-palavra {
@@ -86,11 +89,11 @@
     margin-top: 30px;
 }
 
-.adivinhar-palavra > h1 {
+.adivinhar-palavra>h1 {
     font-size: 20px;
 }
 
-.adivinhar-palavra > input {
+.adivinhar-palavra>input {
     width: 300px;
     height: 20px;
 
@@ -100,17 +103,13 @@
     border-radius: 5px;
 }
 
-.adivinhar-palavra > button {
+.adivinhar-palavra>button {
     height: 40px;
 
     font-size: 15px;
     font-weight: 900;
 
     border-radius: 5px;
-}
-
-.esconde {
-    display: none;
 }
 
 .vermelho {
@@ -120,14 +119,3 @@
 .verde {
     color: green;
 }
-
-.desabilitado > button {
-    color: #79818A;
-    background-color: #9FAAB5;
-    pointer-events: none;
-}
-
-
-
-
-
