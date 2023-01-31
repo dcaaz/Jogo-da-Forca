@@ -41,8 +41,6 @@ export default function App() {
         const indice = Math.floor(Math.random() * palavras.length);  // floor arredonda para o menor número inteiro e random retorna um indice aleatório
         const palavra = palavras[indice];
         const palavraNormalizada = palavra.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split("");  // tira os acentos e transforma em array
-        console.log("Palavra Normalizada", palavraNormalizada);
-        console.log("Palavra", palavra);
 
         let underline = palavraNormalizada.map(() => ' _ ');  // para cada letra da palavra, inserir um traço
 
@@ -78,7 +76,7 @@ export default function App() {
         let novaQuantidadeDeErros = contador + 1;  // para o 'ciclo de vida' dar certo
 
         if (novaQuantidadeDeErros === 6) {
-            console.log(contador)
+           
             setPUnderlines(palavraSorteada);
             setCorPFinalizada("vermelho");
             finalizarPartida();
